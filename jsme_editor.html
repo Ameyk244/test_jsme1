@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSME Editor</title>
+    <!-- Load the JSME library -->
+    <script type="text/javascript" src="jsme/jsme.nocache.js"></script>
+</head>
+<body onload="jsmeOnLoad()">  <!-- Call jsmeOnLoad() when the body is loaded -->
+    <h2>JSME Molecular Editor</h2>
+    
+    <!-- Create the JSME editor div -->
+    <div id="jsme_container" style="width:500px; height:500px;"></div>
+
+    <script>
+        function jsmeOnLoad() {
+            const smiles = getSmilesFromUrl();
+            const jsmeApp = new JSApplet.JSME("jsme_container", "500px", "500px");
+            
+            if (smiles) {
+                jsmeApp.readGenericMolecularInput(smiles); // Set the SMILES structure in the editor
+            }
+        }
+
+        function getSmilesFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('smiles') || '';
+        }
+    </script>
+</body>
+</html>
